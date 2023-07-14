@@ -38,19 +38,21 @@ async function main() {
         // create a new session and load the specific model.
         //
         const session = await ort.InferenceSession.create('./warmup-task.onnx');
-
+        
         // prepare inputs. a tensor need its corresponding TypedArray as data
         const array = createArray();
         const inputTensor = new ort.Tensor("float32", array);
         // prepare feeds. use model input names as keys.
         const feeds = { input: inputTensor};
-
+        
+        const start = Date.now();
         // feed inputs and run
         const results = await session.run(feeds);
 
+        const end = Date.now();
         // read from results
         const dataC = results.output.data;
-        document.write(`data of result tensor 'c': ${dataC}`);
+        document.write(`data of result tensor 'c': ${dataC} \n inference time: ${end - start} ms`);
 
     } catch (e) {
         
