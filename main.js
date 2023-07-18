@@ -49,9 +49,9 @@ function createArray() {
           4.37963666e-01,
           4.98846443e-01, 4.05321809e-01];
 
-const subtracted = array.map((element, index) => element - meanArray[index]);
-const divided = subtracted.map((element, index) => element/stdDevArray[index]);
-return [divided];
+    const subtracted = array.map((element, index) => element - meanArray[index]);
+    const divided = subtracted.map((element, index) => element/stdDevArray[index]);
+    return divided;
 }
 
 async function main() {
@@ -62,7 +62,8 @@ async function main() {
         
         // prepare inputs. a tensor need its corresponding TypedArray as data
         const array = createArray();
-        const inputTensor = new ort.Tensor("float32", array);
+        console.log(array);
+        const inputTensor = new ort.Tensor("float32", array, [1,29]);
         // prepare feeds. use model input names as keys.
         const feeds = { input: inputTensor};
         
@@ -77,6 +78,6 @@ async function main() {
 
     } catch (e) {
         
-        document.getElementById('micro-out-div').innerText = `failed to inference ONNX model: ${predicted}.`;
+        document.getElementById('micro-out-div').innerText = `failed to inference ONNX model.`;
     }
 }
