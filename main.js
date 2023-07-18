@@ -74,7 +74,7 @@ async function main() {
         const end = Date.now();
         // read from results
         const predicted = results.output.data;
-        document.getElementById('micro-out-div').innerText = `Predicted Heating End Use: ${predicted}`;
+        document.getElementById('micro-out-div').innerText = `Predicted Heating End Use: ${predicted} \n inference time: ${end-start} ms`;
 
     } catch (e) {
         
